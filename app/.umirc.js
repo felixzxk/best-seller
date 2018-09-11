@@ -17,6 +17,8 @@ export default {
         { path: '/main/home', component: './main/home/index.js' },
         { path: '/main/funs', component: './main/funs/index.js' },
         { path: '/main/personal', component: './main/personal/index.js' },
+        { path: '/main/favorite', component: './main/favorite/index.js' },
+        { path: '/main/favorite/submit', component: './main/favorite/submit.js' },
       ]
     },
   ],
