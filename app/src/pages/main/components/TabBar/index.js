@@ -16,7 +16,7 @@ export default class TabBar extends Component {
       return null;
     }
     return (
-      <div className={styles.wrap} styles={{}}>
+      <div className={styles.wrap}>
         {this.checkItems(this.props.children)}
       </div>
     );
@@ -24,9 +24,9 @@ export default class TabBar extends Component {
 }
 export const Item = function(props) {
   return (
-    <div className={styles.item}>
-      {props.icon}
-      {props.title}
-    </div>
+    <a className={styles.item} onClick={props.onPress}>
+      {props.selected ? (props.selectedIcon || null) : props.icon}
+      <span style={{color: props.selected ? props.selectedColor : props.color}}>{props.title}</span>
+    </a>
   );
 };

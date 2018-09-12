@@ -1,36 +1,65 @@
 import React, { Component } from 'react';
 import { Icon } from 'antd';
-import TabBar, { Item } from './components/TabBar';
+import _ from 'lodash';
 import { connect } from 'dva';
+import TabBar, { Item } from './components/TabBar';
+import {jump} from '../../utils'
 import styles from './_layout.less';
 
-const TabBarIcon = ({ color = '#999', type, size = 22 }) => {
+const TabBarIcon = ({ color = '#aaa', theme = 'twoTone', type, size = 22 }) => {
+  const style = { fontSize: `${size}px` }
+  const props = {
+    type,
+    theme,
+    style
+  }
+  if(theme === 'twoTone') {
+    props.twoToneColor = color
+  }else {
+    props.style = {...style, color }
+  }
   return (
-    <Icon type={type} theme="twoTone" twoToneColor={color} style={{ fontSize: `${size}px` }} />
+    <Icon {...props} />
   );
 };
 class Layout extends Component {
+  isActive = (key) => _.includes(this.props.location.pathname, key);
   render() {
     return (
       <div className={styles.wrap}>
         <div className={styles.content}>{this.props.children}</div>
-        <i className="fa fa-address-book" aria-hidden="true" />
         <div className={styles.navigater}>
-          <TabBar
-            unselectedTintColor="#949494"
-            tintColor="#33A3F4"
-            barTintColor="white"
-            hidden={false}
-            noRenderContent
-          >
+          <TabBar hidden={false}>
             <Item
               title="排行"
               key="home"
+              color="#999"
+              selectedColor="#ffbc4c"
               icon={<TabBarIcon type="trophy" />}
-              onPress={() => false}
+              selectedIcon={<TabBarIcon type="trophy" theme="filled" color="#ffbc4c" />}
+              onPress={() => jump('/main/home', {}, true)}
+              selected={this.isActive('/home')}
             />
-            <Item title="粉丝" icon={<TabBarIcon type="heart" />} key="funs" />
-            <Item title="我的" key="my" icon={<TabBarIcon type="setting" />} />
+            <Item
+              title="粉丝"
+              key="funs"
+              color="#999"
+              selectedColor="#f31e7b"
+              icon={<TabBarIcon type="heart" />}
+              selectedIcon={<TabBarIcon type="heart" theme="filled" color="#f31e7b" />}
+              onPress={() => jump('/main/funs', {}, true)}
+              selected={this.isActive('/funs')}
+            />
+            <Item
+              title="我的"
+              key="my"
+              color="#999"
+              selectedColor="#46a8f9"
+              icon={<TabBarIcon type="setting" />}
+              selectedIcon={<TabBarIcon type="setting" theme="filled" color="#46a8f9" />}
+              onPress={() => jump('/main/personal', {}, true)}
+              selected={this.isActive('/personal')}
+            />
           </TabBar>
         </div>
       </div>

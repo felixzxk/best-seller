@@ -1,4 +1,4 @@
-import { fetch } from 'fetch';
+import fetch from 'dva/fetch';
 import _ from 'lodash';
 import uri from 'url';
 
@@ -243,10 +243,13 @@ export default function request(url, { body, method, ...options }) {
   options.method = method;
   let apiUrl;
   const matchWX = /^\/wx\//;
+  const matchApi = /^\/api\//;
   if (matchWX.test(url)) {
     const wxUrl = 'https://api.weixin.qq.com/sns/';
     const wxUri = url.replace(matchWX, '');
     apiUrl = `${wxUrl}${wxUri}`;
+  } else if (matchApi.test(url)) {
+    apiUrl = url;
   } else {
     apiUrl = `${apiPrefix}${url}`;
   }
