@@ -32,7 +32,7 @@ export default {
   }),
   'GET /api/getFuns': mockjs.mock({
     data: {
-      'list|10': [
+      'list|30': [
         {
           id: '@natural(10000,99999)',
           name: '@cname',

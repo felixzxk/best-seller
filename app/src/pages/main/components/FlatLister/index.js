@@ -17,58 +17,75 @@ export default class FlatLister extends Component {
     }
     throw new Error('renderRow must be a function, and return a React Element');
   };
-  componentDidMount() {
-    // console.log(this.wrap.current, this.container.current);
-    let startPoint = 0;
-    let distance = 0;
+  startPoint = 0;
+  distance = 0;
+  startHandler = (e) => {
+    this.startPoint = e.changedTouches[0].screenY;
+  }
+  moveHandler = (e) => {
+    this.distance = e.changedTouches[0].screenY - this.startPoint;
     const _wrap = this.wrap.current;
-    _wrap.addEventListener(
+    const _container = this.container.current;
+    if (
+      (this.distance > 0 && _wrap.scrollTop === 0) ||
+      (this.distance <= 0 && (_wrap.scrollTop >= _container.clientHeight - _wrap.clientHeight))
+    ) {
+      _wrap.style.top = this.distance > 100 ? 100 : (this.distance < -100 ? -100 : this.distance) + 'px';
+    }
+  }
+  endHandler = () => {
+    const _wrap = this.wrap.current;
+    const _container = this.container.current;
+    _wrap.style.top = 0;
+    if (this.distance > 100 && _wrap.scrollTop === 0) {
+      console.log('下拉刷新');
+    }
+    if (this.distance <= -100 && (_wrap.scrollTop >= _container.clientHeight - _wrap.clientHeight)) {
+      console.log('上拉加载');
+    }
+    this.startPoint = 0;
+    this.distance = 0;
+  }
+  setListener = (type) => {
+    const _wrap = this.wrap.current;
+    _wrap[type](
       'touchstart',
-      function(e) {
-        // console.log(e.target);
-        if (e.target.scrollTop === 0) {
-          startPoint = e.changedTouches[0].screenY;
-        }
-      },
+      this.startHandler,
       false
     );
-
-    _wrap.addEventListener(
+    _wrap[type](
       'touchmove',
-      function(event) {
-        distance = event.changedTouches[0].screenY - startPoint;
-        if (distance > 0 && event.target.scrollTop === 0) {
-          _wrap.style.position = 'relative';
-          _wrap.style.top = distance + 'px';
-        }
-      },
+      this.moveHandler,
       false
     );
-    _wrap.addEventListener(
+    _wrap[type](
       'touchend',
-      function(event) {
-        _wrap.style.position = 'static';
-        _wrap.style.top = 0;
-        if (distance > 100) {
-          console.log('下拉刷新');
-        }
-        startPoint = 0;
-        distance = 0;
-      },
+      this.endHandler,
       false
     );
+  };
+  componentDidMount() {
+    this.setListener('addEventListener');
+  }
+  componentWillUnmount() {
+    this.setListener('removeEventListener');
   }
   scrollHandler = e => {
     e.preventDefault();
-    if (e.target.scrollTop === 0) {
+    if (_.isFunction(this.props.onScroll)) {
+      this.props.onScroll(e)
     }
   };
   render() {
     return (
-      <div className={styles.wrap} ref={this.wrap} onScroll={this.scrollHandler}>
-        <div className={styles.container} ref={this.container}>
-          <div className={styles.scroll}>{this.renderRows(this.props.data)}</div>
+      <div className={styles.outer}>
+        <div className={styles.bgBox} style={{top: 0}}>下拉刷新</div>
+        <div className={styles.wrap} ref={this.wrap} onScroll={this.scrollHandler}>
+          <div className={styles.container} ref={this.container}>
+            {this.renderRows(this.props.data)}
+          </div>
         </div>
+        <div className={styles.bgBox} style={{bottom: 0}}>上拉加载</div>
       </div>
     );
   }

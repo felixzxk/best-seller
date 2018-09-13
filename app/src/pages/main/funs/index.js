@@ -4,8 +4,7 @@ import FlatLister from '../components/FlatLister';
 
 class Funs extends React.PureComponent {
   row = (rowData, rowID) => {
-    console.log('rowData', rowData);
-    return <div key={rowID} style={{height: '90px'}}>{JSON.stringify(rowData)}</div>;
+    return <div key={rowID} style={{ height: '60px'}}>{rowData.name}</div>;
   };
   render() {
     return <FlatLister data={this.props.list} renderRow={this.row} />;
