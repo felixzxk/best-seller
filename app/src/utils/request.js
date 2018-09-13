@@ -198,7 +198,7 @@ export function checkStatus(result) {
   if (!err.message) {
     err.message = res.statusText;
   }
-  throw new Error(`(${err.status})${err.message}`);
+  throw new Error(JSON.stringify(err));
 }
 
 /**
@@ -263,15 +263,7 @@ export default function request(url, { body, method, ...options }) {
   return fetch(apiUrl, options)
     .then(parseResponse)
     .then(checkStatus)
-    .catch(err => {
-      if (process.env.NODE_ENV === 'development') {
-        // Alert.alert('错误!', `method: ${method}\r\n url: ${apiUrl}\r\n ${err.toString()}`, [
-        //   { text: '关闭' },
-        // ]);
-      } else {
-        // Alert.alert('提示', err.toString(), [{ text: '我知道了' }]);
-      }
-    });
+    .catch(err => Promise.reject(err));
 }
 
 const createMethod = (method, exts = {}) => (url, data, options) => {

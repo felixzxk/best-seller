@@ -24,19 +24,35 @@ const TabBarIcon = ({ color = '#aaa', theme = 'twoTone', type, size = 22 }) => {
 };
 class Layout extends Component {
   isActive = (key) => _.includes(this.props.location.pathname, key);
+  tabBarBorderTopColor = () => {
+    switch(true){
+      case this.isActive('/home'): {
+        return '#f5980e'
+      }
+      case this.isActive('/funs'): {
+        return '#f31e7b'
+      }
+      case this.isActive('/personal'): {
+        return '#46a8f9'
+      }
+      default: {
+        return '#f00'
+      }
+    }
+  }
   render() {
     return (
       <div className={styles.wrap}>
         <div className={styles.content}>{this.props.children}</div>
         <div className={styles.navigater}>
-          <TabBar hidden={false}>
+          <TabBar hidden={false} color={this.tabBarBorderTopColor()}>
             <Item
               title="排行"
               key="home"
               color="#999"
               selectedColor="#ffbc4c"
               icon={<TabBarIcon type="trophy" />}
-              selectedIcon={<TabBarIcon type="trophy" theme="filled" color="#ffbc4c" />}
+              selectedIcon={<TabBarIcon type="trophy" theme="filled" color="#f5980e" />}
               onPress={() => jump('/main/home', {}, true)}
               selected={this.isActive('/home')}
             />

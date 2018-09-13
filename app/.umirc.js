@@ -1,5 +1,3 @@
-
-// ref: https://umijs.org/config/
 export default {
   routes: [
     { path: '/', component: './index.js' },
@@ -23,7 +21,6 @@ export default {
     },
   ],
   plugins: [
-    // ref: https://umijs.org/plugin/umi-plugin-react.html
     ['umi-plugin-react', {
       antd: true,
       dva: true,

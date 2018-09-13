@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import styles from './index.less';
 
 export default class TabBar extends Component {
@@ -16,7 +15,7 @@ export default class TabBar extends Component {
       return null;
     }
     return (
-      <div className={styles.wrap}>
+      <div className={styles.wrap} style={{borderTopColor: this.props.color}}>
         {this.checkItems(this.props.children)}
       </div>
     );

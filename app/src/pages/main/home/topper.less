@@ -1,0 +1,41 @@
+.rowWrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  .wrap {
+    text-align: center;
+    flex-shrink: 0;
+    .avatar {
+      border-radius: 50%;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+      .ranking {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 2;
+        border-radius: 50%;
+      }
+      .count {
+        position: absolute;
+        right: -5px;
+        bottom: 0;
+        background-color: #f00;
+        color: #fff;
+        padding: 0 4px;
+        z-index: 2;
+        font-size: 12px;
+        border-radius: 5px;
+      }
+    }
+    .name {
+      font-size: 16px;
+    }
+    .area {
+      font-size: 14px;
+      color: #aaa;
+    }
+  }
+}
