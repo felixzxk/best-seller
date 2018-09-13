@@ -1,7 +1,5 @@
 import { getTop, getAciveInfo,getMyRanking } from '../services';
-import { take } from "dva/saga";
 
-console.log(take)
 export default {
   namespace: 'home',
   state: {
