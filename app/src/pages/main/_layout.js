@@ -3,47 +3,48 @@ import { Icon } from 'antd';
 import _ from 'lodash';
 import { connect } from 'dva';
 import TabBar, { Item } from './components/TabBar';
-import {jump} from '../../utils'
+import { jump } from '../../utils';
 import styles from './_layout.less';
 
 const TabBarIcon = ({ color = '#aaa', theme = 'twoTone', type, size = 22 }) => {
-  const style = { fontSize: `${size}px` }
+  const style = { fontSize: `${size}px` };
   const props = {
     type,
     theme,
-    style
+    style,
+  };
+  if (theme === 'twoTone') {
+    props.twoToneColor = color;
+  } else {
+    props.style = { ...style, color };
   }
-  if(theme === 'twoTone') {
-    props.twoToneColor = color
-  }else {
-    props.style = {...style, color }
-  }
-  return (
-    <Icon {...props} />
-  );
+  return <Icon {...props} />;
 };
 class Layout extends Component {
-  isActive = (key) => _.includes(this.props.location.pathname, key);
+  isActive = key => _.includes(this.props.location.pathname, key);
   tabBarBorderTopColor = () => {
-    switch(true){
+    switch (true) {
       case this.isActive('/home'): {
-        return '#f5980e'
+        return '#f5980e';
       }
       case this.isActive('/funs'): {
-        return '#f31e7b'
+        return '#f31e7b';
       }
       case this.isActive('/personal'): {
-        return '#46a8f9'
+        return '#46a8f9';
       }
       default: {
-        return '#f00'
+        return '#f00';
       }
     }
-  }
+  };
   render() {
     return (
       <div className={styles.wrap}>
-        <div className={styles.content}>{this.props.children}</div>
+        <div className={styles.content}>
+          {this.props.children}
+        </div>
+        <div style={{ position: 'absolute', bottom: '56px', zIndex: 100 }}>分享我的投票链接</div>
         <div className={styles.navigater}>
           <TabBar hidden={false} color={this.tabBarBorderTopColor()}>
             <Item

@@ -38,10 +38,27 @@ export default {
           name: '@cname',
           avatar: '@image(64x64)',
           mobile: '13@natural(0,9)@string(number, 8)',
+          voteTime: '2018-09-@natural(1,14) @time',
         },
       ],
       page: 1,
-      pageSize: 10, 
-    }
-  })
+      pageSize: 10,
+    },
+  }),
+  'POST /api/seller/login': mockjs.mock({
+    data: {
+      area: [], //省市区的id列表['', '', '']
+      areaText: '@city(true) @county', //地区名称
+      name: '@cname', // 姓名
+      mobile: '13@natural(0,9)@string(number, 8)', // 手机号
+      idCard: '412133198809098888', // 身份证号
+      workNo: '2312312', // 工号
+      createTime: '@datetime', // 创建时间YYYY-MM-DD HH:mm:ss
+      id: '@natural(10000,99999)', // 业务员id
+      avatar: '@image(64x64)', // 头像链接,
+      role: 'seller', // seller 业务员, customer 客户
+      status: 0, // 0 未投票, 1 已投票,
+      token: '', // token
+    },
+  }),
 };

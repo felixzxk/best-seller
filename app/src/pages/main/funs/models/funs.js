@@ -18,10 +18,13 @@ export default {
     },
   },
   effects: {
-    *init(payload, { call, put }) {
-      yield put({
-        type: 'load',
-      });
+    *init(payload, { put, select }) {
+      const { list } = yield select(({ funs }) => funs);
+      if (list.length < 1) {
+        yield put({
+          type: 'load',
+        });
+      }
     },
     *load({ payload }, { call, put, select }) {
       yield put({

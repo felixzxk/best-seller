@@ -33,15 +33,15 @@ export const fromNow = (time, fixer) => {
     }
   } else {
     if (isBefore) {
-      _endfix = ' 之前';
+      _endfix = ' 前';
     } else {
-      _endfix = ' 之后';
+      _endfix = ' 后';
     }
   }
   switch (true) {
-    case /year|年/.test(diff) && fixer === 1:
+    case /year|年/.test(diff):
       return `${_prefix}${count}年${_endfix}`;
-    case /month|月/.test(diff) && fixer === 1:
+    case /month|月/.test(diff):
       return `${_prefix}${count}月${_endfix}`;
     case /day|天/.test(diff):
       return `${_prefix}${count}天${_endfix}`;

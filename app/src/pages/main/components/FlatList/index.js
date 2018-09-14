@@ -1,5 +1,6 @@
-import { Component } from 'React';
+import React, { Component } from 'React';
 import _ from 'lodash';
+import styles from './index.less';
 
 export default class FlatList extends Component {
   renderRows = data => {
@@ -12,8 +13,12 @@ export default class FlatList extends Component {
   };
   render() {
     if (this.props.data.length < 1) {
-      return null;
+      return <div className={styles.emptyText}>{this.props.emptyText || '暂无数据'}</div>;
     }
-    return this.renderRows(this.props.data);
+    return (
+      <div className={this.props.className} style={this.props.style}>
+        {this.renderRows(this.props.data)}
+      </div>
+    );
   }
 }
