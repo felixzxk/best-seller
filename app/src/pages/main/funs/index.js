@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import FlatList from '../components/FlatList';
+import PageControl from '../components/PageControl';
 
 class Funs extends React.PureComponent {
   row = (rowData, rowID) => {
@@ -13,7 +14,7 @@ class Funs extends React.PureComponent {
   refresh = () => {
     this.props.dispatch({
       type: 'funs/load',
-      payload: {refresh: true}
+      payload: { refresh: true },
     });
   };
   loadMore = () => {
@@ -23,15 +24,15 @@ class Funs extends React.PureComponent {
   };
   render() {
     return (
-      <FlatList
-        data={this.props.list}
+      <PageControl
         isLoading={this.props.isLoading}
-        renderRow={this.row}
         allowLoadMore
         threshold={120}
         onPull={this.refresh}
         onPush={this.loadMore}
-      />
+      >
+        <FlatList renderRow={this.row} data={this.props.list} />
+      </PageControl>
     );
   }
 }
