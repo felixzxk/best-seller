@@ -1,13 +1,23 @@
 import React from 'react';
 import { connect } from 'dva';
-import FlatLister from '../components/FlatLister';
+import FlatList from '../components/FlatList';
 
 class Funs extends React.PureComponent {
   row = (rowData, rowID) => {
-    return <div key={rowID} style={{ height: '60px'}}>{rowData.name}</div>;
+    return (
+      <div key={rowID} style={{ height: '60px' }}>
+        {rowData.name}
+      </div>
+    );
   };
+  refresh = () => {
+    this.props.dispatch({
+      type: 'funs/load',
+    })
+  }
   render() {
-    return <FlatLister data={this.props.list} renderRow={this.row} />;
+    console.log('业务组件', this.props.isLoading)
+    return <FlatList data={this.props.list} isLoading={this.props.isLoading} renderRow={this.row} threshold={120} onPull={this.refresh} />;
   }
 }
 
