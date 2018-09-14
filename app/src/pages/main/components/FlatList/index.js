@@ -20,8 +20,8 @@ export default class FlatList extends Component {
     return null;
   }
   componentDidUpdate() {
-    if(!this.props.isLoading){
-      this.loadFinished()
+    if (!this.props.isLoading) {
+      this.loadFinished();
     }
   }
   renderRows = data => {
@@ -75,7 +75,18 @@ export default class FlatList extends Component {
     const _wrap = this.wrap.current;
     const _boxBottom = this.boxBottom.current;
     const _boxTop = this.boxTop.current;
-    _wrap.style.top = 0;
+    let _originHeight = parseInt(_wrap.style.top, 10);
+    const smooth = setInterval(() => {
+      _wrap.style.top = (_originHeight -= _originHeight / 10) + 'px';
+      // 如果这里设置0,则会无限接近而不停止, 所以设置了2为中断阀值
+      if (
+        (_originHeight >= 0 && _originHeight <= 2) ||
+        (_originHeight <= 0 && _originHeight >= -2)
+      ) {
+        _wrap.style.top = 0;
+        clearInterval(smooth);
+      }
+    }, 10);
     this.startPoint = 0;
     this.distance = 0;
     _boxBottom.style.height = 0;

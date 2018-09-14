@@ -13,11 +13,26 @@ class Funs extends React.PureComponent {
   refresh = () => {
     this.props.dispatch({
       type: 'funs/load',
-    })
-  }
+      payload: {refresh: true}
+    });
+  };
+  loadMore = () => {
+    this.props.dispatch({
+      type: 'funs/load',
+    });
+  };
   render() {
-    console.log('业务组件', this.props.isLoading)
-    return <FlatList data={this.props.list} isLoading={this.props.isLoading} renderRow={this.row} threshold={120} onPull={this.refresh} />;
+    return (
+      <FlatList
+        data={this.props.list}
+        isLoading={this.props.isLoading}
+        renderRow={this.row}
+        allowLoadMore
+        threshold={120}
+        onPull={this.refresh}
+        onPush={this.loadMore}
+      />
+    );
   }
 }
 

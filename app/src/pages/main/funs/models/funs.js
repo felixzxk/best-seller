@@ -23,18 +23,26 @@ export default {
         type: 'load',
       });
     },
-    *load(payload, { call, put }) {
+    *load({ payload }, { call, put, select }) {
       yield put({
         type: 'upState',
         payload: { isLoading: true },
       });
+      const { list: _list = [] } = yield select(({ funs }) => funs);
       try {
-        const { data } = yield call(getFuns);
+        const {
+          data: { list, ...other },
+        } = yield call(getFuns);
+        const newData = { list: [..._list, ...list], ...other, isLoading: false };
+        if (payload && payload.refresh) {
+          newData.list = list;
+        }
         yield put({
           type: 'upState',
-          payload: { ...data, isLoading: false },
+          payload: newData,
         });
-      } catch (e) {} finally {
+      } catch (e) {
+      } finally {
         yield put({
           type: 'upState',
           payload: { isLoading: false },
