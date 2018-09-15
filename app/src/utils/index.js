@@ -19,6 +19,7 @@ export const go = (n) => {
 
 export const Null = () => null;
 export const fromNow = (time, fixer) => {
+  time = _.isString(time) ? new Date(time) : time
   const isBefore = moment(time).isBefore();
   let diff = isBefore ? moment(time).toNow(true) : moment(time).fromNow(true);
   let count = diff.split(' ')[0];
