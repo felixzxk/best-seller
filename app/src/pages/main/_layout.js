@@ -20,6 +20,18 @@ const TabBarIcon = ({ color = '#aaa', theme = 'twoTone', type, size = 22 }) => {
   }
   return <Icon {...props} />;
 };
+
+const ShareButton = (props) => {
+  return (
+    <a onClick={() => null} className={styles.shareButton}>
+      {props.icon ? <div className={styles.avatar}>
+        {props.icon}
+      </div> : null}
+      <div className={styles.text}>{props.title || '分享'}</div>
+    </a>
+  )
+};
+
 class Layout extends Component {
   isActive = key => _.includes(this.props.location.pathname, key);
   tabBarBorderTopColor = () => {
@@ -44,7 +56,12 @@ class Layout extends Component {
         <div className={styles.content}>
           {this.props.children}
         </div>
-        <div style={{ position: 'absolute', bottom: '56px', zIndex: 100 }}>分享我的投票链接</div>
+        <div style={{ position: 'absolute', bottom: '56px', zIndex: 100 }}>
+          <ShareButton
+            icon={<Icon style={{ color: '#f00', fontSize: '24px' }} type="share-alt" theme="outlined" />}
+            title="请亲朋好友支持"
+          />
+        </div>
         <div className={styles.navigater}>
           <TabBar hidden={false} color={this.tabBarBorderTopColor()}>
             <Item
