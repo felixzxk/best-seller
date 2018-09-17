@@ -1,4 +1,4 @@
-
+import { login } from "../services";
 export default {
   namespace: 'app',
   state: {
@@ -17,7 +17,16 @@ export default {
       });
     }
   },
-  effects: {},
+  effects: {
+    *init(payload, { call, put }) {
+      const { data } = yield call(login);
+      console.log(data);
+      yield put({
+        type: 'upState',
+        payload: { user: data }
+      })
+    }
+  },
   reducers: {
     upState(state, { payload }) {
       return { ...state, ...payload };

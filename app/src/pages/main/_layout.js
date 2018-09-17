@@ -3,6 +3,7 @@ import { Icon } from 'antd';
 import _ from 'lodash';
 import { connect } from 'dva';
 import TabBar, { Item } from './components/TabBar';
+import MainBtn from './components/MainBbtn'
 import { jump } from '../../utils';
 import styles from './_layout.less';
 
@@ -19,17 +20,6 @@ const TabBarIcon = ({ color = '#aaa', theme = 'twoTone', type, size = 22 }) => {
     props.style = { ...style, color };
   }
   return <Icon {...props} />;
-};
-
-const ShareButton = (props) => {
-  return (
-    <a onClick={() => null} className={styles.shareButton}>
-      {props.icon ? <div className={styles.avatar}>
-        {props.icon}
-      </div> : null}
-      <div className={styles.text}>{props.title || '分享'}</div>
-    </a>
-  )
 };
 
 class Layout extends Component {
@@ -57,7 +47,7 @@ class Layout extends Component {
           {this.props.children}
         </div>
         <div style={{ position: 'absolute', bottom: '56px', zIndex: 100 }}>
-          <ShareButton
+          <MainBtn
             icon={<Icon style={{ color: '#f00', fontSize: '24px' }} type="share-alt" theme="outlined" />}
             title="请亲朋好友支持"
           />
