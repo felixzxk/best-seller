@@ -1,4 +1,4 @@
-import { getTop, getAciveInfo,getMyRanking } from '../services';
+import { getTop, getAciveInfo } from '../services';
 
 export default {
   namespace: 'home',
@@ -21,15 +21,14 @@ export default {
   effects: {
     *init(payload, { call, put, all }) {
       // TODO 优化请求调用次数
-      const [{data: top}, {data: info}, {data: ranking}] = yield all([
+      const [{data: top}, {data: info}] = yield all([
         call(getTop, 20),
         call(getAciveInfo),
-        call(getMyRanking),
       ]);
       yield put({
         type: 'upState',
         payload: {
-          top, info, ranking
+          top, info
         }
       })
     },

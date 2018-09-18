@@ -1,8 +1,9 @@
-import { login } from "../services";
+import { login, getMyRanking } from "../services";
 export default {
   namespace: 'app',
   state: {
-    user: null
+    user: null,
+    status: null
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -20,11 +21,28 @@ export default {
   effects: {
     *init(payload, { call, put }) {
       const { data } = yield call(login);
-      console.log(data);
+      const { data: status } = yield call(getMyRanking);
+      localStorage.setItem('userInfo', JSON.stringify({user: data, status}))
       yield put({
         type: 'upState',
-        payload: { user: data }
+        payload: { user: data, status }
       })
+    },
+    *reSetUserInfo (payload, {put, select}){
+      const {user, status} = yield select(({app}) => app)
+      if(!user || !status){
+        const info = localStorage.getItem('userInfo');
+        if(info) {
+          yield put({
+            type: 'upState',
+            payload: JSON.parse(info)
+          })
+        } else {
+          yield put({
+            type: 'init',
+          })
+        }
+      }
     }
   },
   reducers: {
