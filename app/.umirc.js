@@ -3,7 +3,11 @@ export default {
     { path: '/', component: './index.js' },
     {
       path: '/register',
-      component: './register/index.js'
+      component: './form/index.js'
+    },
+    {
+      path: '/edit',
+      component: './form/index.js'
     },
     {
       path: '/main',
@@ -24,7 +28,10 @@ export default {
     ['umi-plugin-react', {
       antd: true,
       dva: true,
-      dynamicImport: true,
+      dynamicImport: {
+        webpackChunkName: true,
+        loadingComponent: './components/Loading',
+      },
       title: 'app',
       dll: true,
       pwa: false,

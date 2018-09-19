@@ -75,12 +75,33 @@ export const age = birthday => {
 export const errorHandle = err =>
   _.flatten(_.map(_.values(err), ({ errors }) => _.map(errors, ({ message }) => message)));
 
-export const addStars = (str, start, end, symbol = '*') => {
+export const addStars2 = (str, start, end, symbol = '*', count) => {
   if (!str || str.length < 1) {
     return str;
   }
   const arr = str.split('');
   return arr.map((a, i) => (i < start || i > end ? a : symbol)).join('');
+};
+export const addStars = (str, start, length, count, symbol = '*') => {
+  if (!str || str.length < 1) {
+    return str;
+  }
+  const arr = str.split('');
+  const replaceSymbol = (count, symbol) => {
+    if(!count) {
+      return symbol
+    }
+    let str = '';
+    while(count > 0){
+      str += symbol;
+      count--
+    }
+    return str
+
+  }
+  // console.log(replaceSymbol(count || end - start, symbol))
+  arr.splice(start, length, replaceSymbol(count || length, symbol))
+  return arr.join('');
 };
 let debounceTimer = null;
 export const debounce = (fn, context, delay = 300) => {

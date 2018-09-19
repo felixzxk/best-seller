@@ -3,14 +3,15 @@ import { connect } from 'dva';
 import { List } from 'antd-mobile';
 import { Button, Icon } from 'antd';
 import styles from './index.less';
+import { addStars } from '../../../utils';
 
 const Item = List.Item;
-const Label = (props) => {
+const Label = props => {
   const style = {
-    fontSize: '14px'
-  }
-  return <span style={style}>{props.title}</span>
-}
+    fontSize: '14px',
+  };
+  return <span style={style}>{props.title}</span>;
+};
 class Personal extends Component {
   render() {
     return (
@@ -33,12 +34,22 @@ class Personal extends Component {
             </div>
           </div>
         </div>
-        <List className="myList">
-          <Item extra={this.props.user.areaText}><Label title="地区" /></Item>
-          <Item extra={this.props.user.mobile}><Label title="手机号" /></Item>
-          <Item extra={this.props.user.idCard}><Label title="身份证号" /></Item>
-          <Item extra={this.props.user.workNo}><Label title="工号" /></Item>
-        </List>
+        <div className={styles.list}>
+          <List className="myList">
+            <Item extra={this.props.user.areaText}>
+              <Label title="地区" />
+            </Item>
+            <Item extra={addStars(this.props.user.mobile, 3, 4)}>
+              <Label title="手机号" />
+            </Item>
+            <Item extra={addStars(this.props.user.idCard, 2, 12, 4)}>
+              <Label title="身份证号" />
+            </Item>
+            <Item extra={this.props.user.workNo}>
+              <Label title="工号" />
+            </Item>
+          </List>
+        </div>
       </div>
     );
   }
