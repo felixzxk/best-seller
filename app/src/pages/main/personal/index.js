@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { List } from 'antd-mobile';
 import { Button, Icon } from 'antd';
 import styles from './index.less';
-import { addStars } from '../../../utils';
+import { addStars, jump } from '../../../utils';
 
 const Item = List.Item;
 const Label = props => {
@@ -13,13 +13,16 @@ const Label = props => {
   return <span style={style}>{props.title}</span>;
 };
 class Personal extends Component {
+  edit = () => {
+    jump('/edit', {data: JSON.stringify(this.props.user)})
+  }
   render() {
     return (
       <div className={styles.wrap}>
         <div className={styles.personMain}>
           <img src={this.props.user.avatar} alt={this.props.user.name} />
           <div className={styles.name}>{this.props.user.name}</div>
-          <Button className={styles.editor} size="small" type="primary">
+          <Button className={styles.editor} size="small" type="primary" onClick={this.edit}>
             <Icon type="edit" />
             编辑
           </Button>
