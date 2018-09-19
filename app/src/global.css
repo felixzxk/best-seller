@@ -6,3 +6,8 @@ html, body, #root {
 body {
   margin: 0;
 }
+
+.myList .am-list-item .am-list-line .am-list-extra {
+  flex-basis: 200px;
+  font-size: 14px;
+}

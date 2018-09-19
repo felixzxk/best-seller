@@ -33,7 +33,7 @@ class Personal extends Component {
             </div>
           </div>
         </div>
-        <List className={styles.list}>
+        <List className="myList">
           <Item extra={this.props.user.areaText}><Label title="地区" /></Item>
           <Item extra={this.props.user.mobile}><Label title="手机号" /></Item>
           <Item extra={this.props.user.idCard}><Label title="身份证号" /></Item>
