@@ -76,10 +76,19 @@ class Editor extends Component {
       area: [],
     });
   };
+  submit = () => {
+    console.log(this.props.form);
+    const {validateFields} = this.props.form;
+    validateFields((error, values) => {
+      if(!error){
+        console.log(values)
+      }
+    })
+  }
   render() {
     const { getFieldProps, getFieldError } = this.props.form;
     return (
-      <div>
+      <div className={styles.wrap}>
         {this.state.options ? (
           <Picker
             title={this.state.areaTitle}
@@ -88,7 +97,7 @@ class Editor extends Component {
             onClose={this.onclClose}
           />
         ) : null}
-        <div>
+        <div className={styles.formWrap}>
           <List className="myList">
             <Item extra={this.state.areaValue.name || '请选择'} onClick={this.chosseArea}>
               地区
@@ -119,7 +128,36 @@ class Editor extends Component {
             >
               手机号
             </InputItem>
+            <InputItem
+              {...getFieldProps('idCard', {
+                rules: [{ required: true, message: '请输入身份证号' }],
+              })}
+              clear
+              error={!!getFieldError('idCard')}
+              onErrorClick={() => {
+                // alert(getFieldError('name').join('、'));
+              }}
+              placeholder="请输入身份证号"
+            >
+              身份证号
+            </InputItem>
+            <InputItem
+              {...getFieldProps('workNo', {
+                rules: [{ required: true, message: '请输入工号' }],
+              })}
+              clear
+              error={!!getFieldError('workNo')}
+              onErrorClick={() => {
+                // alert(getFieldError('name').join('、'));
+              }}
+              placeholder="请输入工号"
+            >
+              工号
+            </InputItem>
           </List>
+        </div>
+        <div className={styles.btnWrap}>
+          <Button type="primary" onClick={this.submit}>提交</Button>
         </div>
       </div>
     );
