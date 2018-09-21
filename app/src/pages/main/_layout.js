@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Icon } from 'antd';
 import _ from 'lodash';
 import { connect } from 'dva';
-import TabBar, { Item } from './components/TabBar';
+import TabBar from './components/TabBar';
 import MainBtn from './components/MainBbtn';
 import { jump } from '../../utils';
 import styles from './_layout.less';
+
+const Item = TabBar.Item;
 
 const TabBarIcon = ({ color = '#aaa', theme = 'twoTone', type, size = 22 }) => {
   const style = { fontSize: `${size}px` };
@@ -47,7 +49,7 @@ class Layout extends Component {
         <div
           style={{
             position: 'absolute',
-            bottom: '56px',
+            bottom: this.props.app.tabHidden ? '10px' : '56px',
             left: 0,
             width: '100%',
             textAlign: 'center',
@@ -62,7 +64,7 @@ class Layout extends Component {
           />
         </div>
         <div className={styles.navigater}>
-          <TabBar hidden={false} color={this.tabBarBorderTopColor()}>
+          <TabBar hidden={this.props.app.tabHidden} color={this.tabBarBorderTopColor()}>
             <Item
               title="排行"
               key="home"

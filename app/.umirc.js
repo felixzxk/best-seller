@@ -17,6 +17,7 @@ export default {
       component: './main/_layout.js',
       routes: [
         { path: '/main/home', component: './main/home/index.js' },
+        { path: '/main/siblings', component: './main/home/siblings.js' },
         { path: '/main/funs', component: './main/funs/index.js' },
         { path: '/main/personal', component: './main/personal/index.js' },
         { path: '/main/favorite', component: './main/favorite/index.js' },

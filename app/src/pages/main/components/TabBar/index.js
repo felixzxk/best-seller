@@ -4,7 +4,7 @@ import styles from './index.less';
 export default class TabBar extends Component {
   checkItems = items => {
     return React.Children.map(items, (item, i) => {
-      if (item.type === Item) {
+      if (item.type === TabBar.Item) {
         return item;
       }
       return null;
@@ -21,7 +21,7 @@ export default class TabBar extends Component {
     );
   }
 }
-export const Item = function(props) {
+TabBar.Item = function(props) {
   return (
     <a className={styles.item} onClick={props.onPress}>
       {props.selected ? (props.selectedIcon || null) : props.icon}

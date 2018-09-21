@@ -3,7 +3,8 @@ export default {
   namespace: 'app',
   state: {
     user: null,
-    status: null
+    status: null,
+    tabHidden: false
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -15,6 +16,27 @@ export default {
         } else {
           dispatch({ type: 'reSetUserInfo' });
         }
+        switch(pathname){
+          case '/main/home':
+          case '/main/funs':
+          case '/main/personal': {
+            dispatch({
+              type: 'upState',
+              payload: {
+                tabHidden: false
+              }
+            });
+            break;
+          }
+          default: {
+            dispatch({
+              type: 'upState',
+              payload: {
+                tabHidden: true
+              }
+            });
+          }
+        }
       });
     }
   },
@@ -22,17 +44,17 @@ export default {
     *init(payload, { call, put }) {
       const { data } = yield call(login);
       const { data: status } = yield call(getMyRanking);
-      localStorage.setItem('userInfo', JSON.stringify({user: data, status}))
+      localStorage.setItem('userInfo', JSON.stringify({ user: data, status }))
       yield put({
         type: 'upState',
         payload: { user: data, status }
       })
     },
-    *reSetUserInfo (payload, {put, select}){
-      const {user, status} = yield select(({app}) => app)
-      if(!user || !status){
+    *reSetUserInfo(payload, { put, select }) {
+      const { user, status } = yield select(({ app }) => app)
+      if (!user || !status) {
         const info = localStorage.getItem('userInfo');
-        if(info) {
+        if (info) {
           yield put({
             type: 'upState',
             payload: JSON.parse(info)

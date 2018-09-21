@@ -12,7 +12,7 @@ export default class FlatList extends Component {
     throw new Error('renderRow must be a function, and return a React Element');
   };
   render() {
-    if (this.props.data.length < 1) {
+    if (!this.props.data || this.props.data.length < 1) {
       return <div className={styles.emptyText}>{this.props.emptyText || '暂无数据'}</div>;
     }
     return (

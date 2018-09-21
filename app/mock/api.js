@@ -61,4 +61,16 @@ export default {
       token: '', // token
     },
   }),
+  'GET /api/siblings': mockjs.mock({
+    data: {
+      'list|6': [
+        {
+          name: '@cname',
+          count: '@natural(0,999)',
+          ranking: '@natural(1,9999)',
+          avatar: '@image(64x64)',
+        }
+      ]
+    }
+  }) 
 };

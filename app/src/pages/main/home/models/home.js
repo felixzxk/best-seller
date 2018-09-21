@@ -5,7 +5,7 @@ export default {
   state: {
     top: null,
     info: null,
-    ranking: null
+    ranking: null,
   },
   subscriptions: {
     setup({ dispatch, history }) {

@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import { connect } from 'dva';
 import { Input } from 'antd';
 import styles from './index.less';
 import Title from './Title';
 import Topper from './Topper';
+import { jump } from "../../../utils";
 
 class Home extends Component {
-  onSearch = value => {
-    console.log(value)
+  onSearch = keywords => {
+    if(_.trim(keywords)){
+      jump('/main/siblings', {keywords});
+    }
   }
   render() {
     return (
