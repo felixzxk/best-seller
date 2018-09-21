@@ -7,7 +7,6 @@ import Picker from './components/Picker';
 import styles from './index.less';
 
 const areaData = require('../../utils/area.json');
-console.log(areaData);
 const Item = List.Item;
 
 class Editor extends Component {

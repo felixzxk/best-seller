@@ -3,7 +3,7 @@ import { Icon } from 'antd';
 import _ from 'lodash';
 import { connect } from 'dva';
 import TabBar, { Item } from './components/TabBar';
-import MainBtn from './components/MainBbtn'
+import MainBtn from './components/MainBbtn';
 import { jump } from '../../utils';
 import styles from './_layout.less';
 
@@ -43,12 +43,21 @@ class Layout extends Component {
   render() {
     return (
       <div className={styles.wrap}>
-        <div className={styles.content}>
-          {this.props.children}
-        </div>
-        <div style={{ position: 'absolute', bottom: '56px', zIndex: 100 }}>
+        <div className={styles.content}>{this.props.children}</div>
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '56px',
+            left: 0,
+            width: '100%',
+            textAlign: 'center',
+            zIndex: 100,
+          }}
+        >
           <MainBtn
-            icon={<Icon style={{ color: '#f00', fontSize: '24px' }} type="share-alt" theme="outlined" />}
+            icon={
+              <Icon style={{ color: '#f00', fontSize: '24px' }} type="share-alt" theme="outlined" />
+            }
             title="请亲朋好友支持"
           />
         </div>
