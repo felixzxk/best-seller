@@ -1,0 +1,60 @@
+.resultInfo {
+  padding: 5px 0;
+  span {
+    color: red
+  }
+}
+.wrap {
+  overflow: auto;
+  flex: 1;
+  padding-bottom: 56px;
+  padding-right: 5px;
+  .item {
+    width: 50%;
+    float: left;
+    text-align: center;
+    padding: 5px 0 0 5px;
+    .itemCont {
+      background-color: #fff;
+      padding: 10px 10px 40px;
+      border-radius: 5px;
+      border: 1px solid #eee;
+      position: relative;
+      .name {
+        font-size: 16px;
+        color: #000
+      }
+      .area {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.5em;
+        color: #999
+      }
+      img {
+        border-radius: 50%;
+        width: 96px;
+        height: 96px;
+      };
+      .ranking,
+      .count {
+        position: absolute;
+        bottom: 0;
+        height: 32px;
+        line-height: 32px;
+        left: 0;
+        text-align: center;
+        width: 50%;
+        border-top: 1px solid #eee;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .count {
+        right: 0;
+        left: auto;
+        border-left: 1px solid #eee
+      }
+    }
+  }
+}

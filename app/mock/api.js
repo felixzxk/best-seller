@@ -65,10 +65,12 @@ export default {
     data: {
       'list|6': [
         {
+          id: '@natural(10000,99999)', // 业务员id
           name: '@cname',
           count: '@natural(0,999)',
           ranking: '@natural(1,9999)',
-          avatar: '@image(64x64)',
+          avatar: '@image(96x96)',
+          areaText: '@city(true) @county', //地区名称
         }
       ]
     }
