@@ -76,11 +76,14 @@ class Editor extends Component {
     });
   };
   submit = () => {
-    console.log(this.props.form);
     const {validateFields} = this.props.form;
     validateFields((error, values) => {
       if(!error){
-        console.log(values)
+        console.log(this.props);
+
+        this.props.dispatch({
+          type: 'editor/submit'
+        })
       }
     })
   }

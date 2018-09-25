@@ -4,7 +4,8 @@ export default {
   namespace: 'siblings',
   state: {
     data: [],
-    keywords: ''
+    keywords: '',
+    searchValue: '',
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -12,26 +13,31 @@ export default {
         if (pathname === '/main/siblings') {
           dispatch({
             type: 'init',
-            payload: query
+            payload: query.keywords,
           });
         }
       });
     },
   },
   effects: {
-    *init({ payload }, { put }) {
-      yield put({
-        type: 'search',
-        payload,
-      })
+    *init({ payload }, { put, all }) {
+      yield all([
+        put({
+          type: 'upState',
+          payload: { searchValue: payload },
+        }),
+        put({
+          type: 'search',
+          payload,
+        })
+      ])
     },
     *search({ payload }, { call, put }) {
-      const { data } = yield call(getSiblings, payload);
-      console.log('data', data)
+      const { data } = yield call(getSiblings, { keywords: payload });
       yield put({
         type: 'upState',
         payload: {
-          ...payload,
+          keywords: payload,
           data: data.list
         }
       })
